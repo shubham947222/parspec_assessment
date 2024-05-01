@@ -99,12 +99,12 @@ function App() {
   return (
     <div
       style={{
-        margin: "100px",
+        marginTop: "100px",
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
-        // width: "100%",
+        width: "100vw",
       }}
     >
       <input
