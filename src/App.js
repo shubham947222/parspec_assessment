@@ -91,6 +91,15 @@ function App() {
         </span>
       ));
   };
+  const highlightSearchInputInItems = (items, searchInput) => {
+    return items.map((item, index) =>
+      item.toLowerCase().includes(searchInput.toLowerCase()) ? (
+        <li key={index}>
+          <span className="blue">{searchInput}</span> found in items
+        </li>
+      ) : null
+    );
+  };
 
   return (
     <div
@@ -150,12 +159,7 @@ function App() {
             >
               <h2>{highlightSearchInput(each?.id, searchInput)}</h2>
               <h3>{highlightSearchInput(each?.name, searchInput)}</h3>
-
-              {each?.items.join().includes(searchInput.toLowerCase()) && (
-                <li>
-                  <span className="blue">{searchInput}</span> found in items
-                </li>
-              )}
+              <ul>{highlightSearchInputInItems(each?.items, searchInput)}</ul>
               <p>{highlightSearchInput(each?.address, searchInput)}</p>
             </div>
           ))}
