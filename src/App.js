@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./App.css";
 function App() {
@@ -31,16 +31,6 @@ function App() {
     }
   }, [searchInput]);
 
-  useEffect(() => {
-    const h2Elements = document.querySelectorAll("h2");
-    const h3Elements = document.querySelectorAll("h3");
-    const pElements = document.querySelectorAll("p");
-
-    h2Elements.forEach((el) => applyColorChanges(el, searchInput));
-    h3Elements.forEach((el) => applyColorChanges(el, searchInput));
-    pElements.forEach((el) => applyColorChanges(el, searchInput));
-  }, [filterData]);
-
   const handleSearch = (text) => {
     const filteredData = userData?.filter(
       (each) =>
@@ -68,16 +58,6 @@ function App() {
 
   const handleCardHover = (index) => {
     setHoveredItemIndex(index);
-  };
-
-  // Function to apply color to substrings
-  const applyColorChanges = (element, text) => {
-    const textContent = element.textContent.toLowerCase();
-
-    element.innerHTML = textContent.replace(
-      new RegExp(text, "i"),
-      `<span class="blue">${text}</span>`
-    );
   };
 
   useEffect(() => {
@@ -152,13 +132,58 @@ function App() {
               }}
               onMouseLeave={() => setHoveredItemIndex(-1)}
             >
-              <h2>{each?.id}</h2>
-              <h3>{each?.name}</h3>
+              <h2>
+                {each?.id
+                  .split(new RegExp(`(${searchInput})`, "gi"))
+                  .map((part, index) => (
+                    <span
+                      key={index}
+                      className={
+                        part.toLowerCase() === searchInput.toLowerCase()
+                          ? "blue"
+                          : ""
+                      }
+                    >
+                      {part}
+                    </span>
+                  ))}
+              </h2>
+              <h3>
+                {each?.name
+                  .split(new RegExp(`(${searchInput})`, "gi"))
+                  .map((part, index) => (
+                    <span
+                      key={index}
+                      className={
+                        part.toLowerCase() === searchInput.toLowerCase()
+                          ? "blue"
+                          : ""
+                      }
+                    >
+                      {part}
+                    </span>
+                  ))}
+              </h3>
 
               {each?.items.join().includes(searchInput.toLowerCase()) && (
                 <p>{`${searchInput} found in items`}</p>
               )}
-              <p>{each?.address}</p>
+              <p>
+                {each?.address
+                  .split(new RegExp(`(${searchInput})`, "gi"))
+                  .map((part, index) => (
+                    <span
+                      key={index}
+                      className={
+                        part.toLowerCase() === searchInput.toLowerCase()
+                          ? "blue"
+                          : ""
+                      }
+                    >
+                      {part}
+                    </span>
+                  ))}
+              </p>
             </div>
           ))}
         </div>
