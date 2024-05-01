@@ -155,7 +155,7 @@ function App() {
               <h2>{each?.id}</h2>
               <h3>{each?.name}</h3>
 
-              {each?.items.join().includes(searchInput) && (
+              {each?.items.join().includes(searchInput.toLowerCase()) && (
                 <p>{`${searchInput} found in items`}</p>
               )}
               <p>{each?.address}</p>
