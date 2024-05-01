@@ -76,6 +76,22 @@ function App() {
       }
     }
   }, [hoveredItemIndex]);
+
+  const highlightSearchInput = (text, searchInput) => {
+    return text
+      .split(new RegExp(`(${searchInput})`, "gi"))
+      .map((part, index) => (
+        <span
+          key={index}
+          className={
+            part.toLowerCase() === searchInput.toLowerCase() ? "blue" : ""
+          }
+        >
+          {part}
+        </span>
+      ));
+  };
+
   return (
     <div
       style={{
@@ -132,60 +148,15 @@ function App() {
               }}
               onMouseLeave={() => setHoveredItemIndex(-1)}
             >
-              <h2>
-                {each?.id
-                  .split(new RegExp(`(${searchInput})`, "gi"))
-                  .map((part, index) => (
-                    <span
-                      key={index}
-                      className={
-                        part.toLowerCase() === searchInput.toLowerCase()
-                          ? "blue"
-                          : ""
-                      }
-                    >
-                      {part}
-                    </span>
-                  ))}
-              </h2>
-              <h3>
-                {each?.name
-                  .split(new RegExp(`(${searchInput})`, "gi"))
-                  .map((part, index) => (
-                    <span
-                      key={index}
-                      className={
-                        part.toLowerCase() === searchInput.toLowerCase()
-                          ? "blue"
-                          : ""
-                      }
-                    >
-                      {part}
-                    </span>
-                  ))}
-              </h3>
+              <h2>{highlightSearchInput(each?.id, searchInput)}</h2>
+              <h3>{highlightSearchInput(each?.name, searchInput)}</h3>
 
               {each?.items.join().includes(searchInput.toLowerCase()) && (
                 <li>
                   <span className="blue">{searchInput}</span> found in items
                 </li>
               )}
-              <p>
-                {each?.address
-                  .split(new RegExp(`(${searchInput})`, "gi"))
-                  .map((part, index) => (
-                    <span
-                      key={index}
-                      className={
-                        part.toLowerCase() === searchInput.toLowerCase()
-                          ? "blue"
-                          : ""
-                      }
-                    >
-                      {part}
-                    </span>
-                  ))}
-              </p>
+              <p>{highlightSearchInput(each?.address, searchInput)}</p>
             </div>
           ))}
         </div>
