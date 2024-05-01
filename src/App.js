@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     fetchUserData();
-    parentRef.current.focus();
+    // parentRef.current.focus();
   }, []);
 
   const fetchUserData = () => {
@@ -106,50 +106,71 @@ function App() {
       <header className="">
         <input
           type="search"
+          width={100}
           style={{
             padding: "10px",
+            border: "none",
+            width: "80%",
+            margin: "0 auto",
+            display: "block",
           }}
           onChange={(e) => setSearchInput(e.target.value)}
+          autoFocus
+          placeholder="Search users by ID, Address, name..."
         />
       </header>
-      <div
-        style={{
-          height: "60vh",
-          overflowY: "scroll",
-        }}
-        ref={parentRef}
-        className="parent"
-        onKeyDown={handleKeyDown}
-        tabIndex={0} // makeingg the div focusable for keyboard events
-      >
-        {filterData?.map((each, index) => (
+      {filterData?.length > 0 ? (
+        <div
+          style={{
+            height: "60vh",
+            overflowY: "scroll",
+          }}
+          ref={parentRef}
+          className="parent"
+          onKeyDown={handleKeyDown}
+          tabIndex={0} // makeingg the div focusable for keyboard events
+        >
+          {filterData?.map((each, index) => (
+            <div
+              style={{
+                margin: "5px",
+                padding: "5px",
+                border: "1px solid grey",
+                borderRadius: "5px",
+                width: "500px",
+                backgroundColor:
+                  hoveredItemIndex === index ? "lightblue" : "transparent",
+              }}
+              key={index + each?.id}
+              onMouseEnter={() => {
+                handleCardHover(index);
+                parentRef.current?.focus();
+              }}
+              onMouseLeave={() => setHoveredItemIndex(-1)}
+            >
+              <h2>{each?.id}</h2>
+              <h3>{each?.name}</h3>
+
+              {each?.items.join().includes(searchInput) && (
+                <p>{`${searchInput} found in items`}</p>
+              )}
+              <p>{each?.address}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        searchInput?.length > 0 && (
           <div
             style={{
-              margin: "5px",
-              padding: "5px",
-              border: "1px solid grey",
-              borderRadius: "5px",
-              width: "500px",
-              backgroundColor:
-                hoveredItemIndex === index ? "lightblue" : "transparent",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            key={index + each?.id}
-            onMouseEnter={() => {
-              handleCardHover(index);
-              parentRef.current?.focus();
-            }}
-            onMouseLeave={() => setHoveredItemIndex(-1)}
           >
-            <h2>{each?.id}</h2>
-            <h3>{each?.name}</h3>
-
-            {each?.items.join().includes(searchInput) && (
-              <p>{`${searchInput} found in items`}</p>
-            )}
-            <p>{each?.address}</p>
+            <p>No User Found</p>
           </div>
-        ))}
-      </div>
+        )
+      )}
     </div>
   );
 }
