@@ -98,32 +98,36 @@ function App() {
   }, [hoveredItemIndex]);
   return (
     <div
-      className=""
       style={{
         margin: "100px",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        // width: "100%",
       }}
     >
-      <header className="">
-        <input
-          type="search"
-          width={100}
-          style={{
-            padding: "10px",
-            border: "none",
-            width: "80%",
-            margin: "0 auto",
-            display: "block",
-          }}
-          onChange={(e) => setSearchInput(e.target.value)}
-          autoFocus
-          placeholder="Search users by ID, Address, name..."
-        />
-      </header>
+      <input
+        type="search"
+        width={100}
+        style={{
+          padding: "10px",
+          border: "none",
+          width: "50%",
+          marginBottom: "20px",
+          margin: "0 auto",
+          display: "block",
+        }}
+        onChange={(e) => setSearchInput(e.target.value)}
+        autoFocus
+        placeholder="Search users by ID, Address, name..."
+      />
       {filterData?.length > 0 ? (
         <div
           style={{
             height: "60vh",
             overflowY: "scroll",
+            width: "50%",
           }}
           ref={parentRef}
           className="parent"
@@ -137,7 +141,7 @@ function App() {
                 padding: "5px",
                 border: "1px solid grey",
                 borderRadius: "5px",
-                width: "500px",
+                // width: "50%",
                 backgroundColor:
                   hoveredItemIndex === index ? "lightblue" : "transparent",
               }}
@@ -158,18 +162,18 @@ function App() {
             </div>
           ))}
         </div>
+      ) : searchInput?.length > 0 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p>No User Found</p>
+        </div>
       ) : (
-        searchInput?.length > 0 && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <p>No User Found</p>
-          </div>
-        )
+        ""
       )}
     </div>
   );
