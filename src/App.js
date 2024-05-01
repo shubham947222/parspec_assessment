@@ -166,7 +166,9 @@ function App() {
               </h3>
 
               {each?.items.join().includes(searchInput.toLowerCase()) && (
-                <p>{`${searchInput} found in items`}</p>
+                <li>
+                  <span className="blue">{searchInput}</span> found in items
+                </li>
               )}
               <p>
                 {each?.address
