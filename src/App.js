@@ -76,7 +76,7 @@ function App() {
 
     element.innerHTML = textContent.replace(
       new RegExp(text, "i"),
-      `<span class="red">${text}</span>`
+      `<span class="blue">${text}</span>`
     );
   };
 
