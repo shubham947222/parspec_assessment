@@ -113,7 +113,7 @@ function App() {
         style={{
           padding: "10px",
           border: "none",
-          width: "50%",
+          width: "70%",
           marginBottom: "20px",
           margin: "0 auto",
           display: "block",
@@ -127,7 +127,7 @@ function App() {
           style={{
             height: "60vh",
             overflowY: "scroll",
-            width: "50%",
+            width: "70%",
           }}
           ref={parentRef}
           className="parent"
